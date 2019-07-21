@@ -22,22 +22,56 @@
 */
 package com.djrapitops.extension;
 
+import com.djrapitops.plan.extension.CallEvents;
 import com.djrapitops.plan.extension.DataExtension;
+import com.djrapitops.plan.extension.annotation.NumberProvider;
 import com.djrapitops.plan.extension.annotation.PluginInfo;
 import com.djrapitops.plan.extension.icon.Color;
 import com.djrapitops.plan.extension.icon.Family;
+import io.minimum.minecraft.superbvote.SuperbVote;
+import io.minimum.minecraft.superbvote.storage.VoteStorage;
+import io.minimum.minecraft.superbvote.util.PlayerVotes;
+
+import java.util.UUID;
+
+import static org.bukkit.plugin.java.JavaPlugin.getPlugin;
 
 /**
  * Template for new DataExtension.
  *
  * @author Rsl1122
  */
-@PluginInfo(name = "", iconName = "", iconFamily = Family.SOLID, color = Color.NONE)
-public class NewExtension implements DataExtension {
+@PluginInfo(name = "SuperbVote", iconName = "check", iconFamily = Family.SOLID, color = Color.TEAL)
+public class SuperbVoteExtension implements DataExtension {
 
-    public NewExtension() {
-        // TODO Add required API classes
+    private VoteStorage store;
+
+    SuperbVoteExtension(boolean forTesting) {
     }
 
-    // TODO Add Provider methods
+    public SuperbVoteExtension() {
+        SuperbVote plugin = getPlugin(SuperbVote.class);
+        if (plugin == null) throw new IllegalStateException();
+        store = plugin.getVoteStorage();
+        if (store == null) throw new IllegalStateException();
+    }
+
+    @Override
+    public CallEvents[] callExtensionMethodsOn() {
+        return new CallEvents[]{
+                CallEvents.PLAYER_LEAVE
+        };
+    }
+
+    @NumberProvider(
+            text = "Votes",
+            description = "How many times player has voted while SuperbVote was installed",
+            iconName = "check",
+            iconColor = Color.TEAL,
+            showInPlayerTable = true
+    )
+    public long votes(UUID playerUUID) {
+        PlayerVotes votes = store.getVotes(playerUUID);
+        return votes != null ? votes.getVotes() : 0;
+    }
 }

@@ -31,11 +31,11 @@ import java.util.Optional;
  *
  * @author Rsl1122
  */
-public class NewExtensionFactory {
+public class SuperbVoteExtensionFactory {
 
     private boolean isAvailable() {
         try {
-            Class.forName("");
+            Class.forName("io.minimum.minecraft.superbvote.SuperbVote");
             return true;
         } catch (ClassNotFoundException e) {
             return false;
@@ -43,8 +43,12 @@ public class NewExtensionFactory {
     }
 
     public Optional<DataExtension> createExtension() {
-        if (isAvailable()) {
-            return Optional.of(new NewExtension());
+        try {
+            if (isAvailable()) {
+                return Optional.of(new SuperbVoteExtension());
+            }
+        } catch (IllegalStateException e) {
+            // Return empty optional.
         }
         return Optional.empty();
     }
