@@ -21,13 +21,7 @@
     </build>
 
     <repositories>
-        <repository>
-            <id>plan-bintray</id>
-            <url>https://dl.bintray.com/rsl1122/Plan-repository/</url>
-        </repository>
-
         <!-- Platforms -->
-
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
@@ -44,21 +38,29 @@
         <!--<id>velocity-repo</id>-->
         <!--<url>https://repo.velocitypowered.com/snapshots/</url>-->
         <!--</repository>-->
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>plan-repo</id>
+            <url>https://repo.playeranalytics.net/releases</url>
+        </repository>
     </repositories>
 
     <dependencies>
         <dependency> <!-- Plan API -->
             <groupId>com.djrapitops</groupId>
-            <artifactId>Plan-api</artifactId>
-            <version>0.0.5</version>
+            <artifactId>plan-api</artifactId>
+            <version>5.2-R0.1</version>
             <scope>provided</scope>
         </dependency>
 
         <!-- Plugin API Dependency -->
         <dependency>
-            <groupId>io.minimum</groupId>
-            <artifactId>minecraft.superbvote</artifactId>
-            <version>0.5.4</version>
+            <groupId>com.github.astei</groupId>
+            <artifactId>SuperbVote</artifactId>
+            <version>700fca4365</version>
             <scope>provided</scope>
         </dependency>
 
@@ -111,9 +113,8 @@
 
     <distributionManagement>
         <repository>
-            <id>bintray-rsl1122-Plan-repository</id>
-            <name>rsl1122-Plan-repository</name>
-            <url>https://api.bintray.com/maven/rsl1122/Plan-repository/Extension-SuperbVote/;publish=1</url>
+            <id>plan-repo</id>
+            <url>https://repo.playeranalytics.net/releases</url>
         </repository>
     </distributionManagement>
 </project>
